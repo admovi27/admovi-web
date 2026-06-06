@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ADMOVI · Logística que mueve tu negocio</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+--negro:#0d1117;
+--blanco:#f4f6fa;
+--azul:#1a4fa0;
+--azul-oscuro:#0f3270;
+--azul-claro:#2d6dd4;
+--gris:#6b7280;
+--gris-claro:#e8edf4;
+--font-display:'Outfit',sans-serif;
+--font-body:'DM Sans',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--blanco);color:var(--negro);overflow-x:hidden}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 4rem;background:rgba(244,246,250,0.95);backdrop-filter:blur(14px);border-bottom:1px solid rgba(26,79,160,0.1)}
+.nav-logo img{height:36px;display:block}
+.nav-links{display:flex;align-items:center;gap:2.5rem;list-style:none}
+.nav-links a{font-size:0.875rem;font-weight:500;color:var(--gris);text-decoration:none;transition:color 0.2s}
+.nav-links a:hover{color:var(--azul)}
+.nav-cta{background:var(--azul);color:#fff!important;padding:0.6rem 1.4rem;border-radius:100px;transition:background 0.2s!important}
+.nav-cta:hover{background:var(--azul-claro)!important}
+
+.hero{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:0 4rem 5rem;overflow:hidden}
+.hero-video{position:absolute;inset:0;z-index:0}
+.hero-video video{width:100%;height:100%;object-fit:cover}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to right,rgba(15,50,112,0.88) 40%,rgba(15,50,112,0.4) 100%);z-index:1}
+.hero-grid{position:absolute;inset:0;z-index:1;background-image:linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);background-size:60px 60px}
+.hero-content{position:relative;z-index:2;max-width:650px}
+.hero-tag{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.65);font-size:0.78rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;padding:0.4rem 1rem;border-radius:100px;margin-bottom:2rem}
+.hero-tag span{width:6px;height:6px;background:#5b9cf6;border-radius:50%;display:inline-block}
+.hero h1{font-family:var(--font-display);font-size:clamp(2.8rem,6vw,5.5rem);font-weight:800;line-height:0.97;letter-spacing:-0.04em;color:#fff;margin-bottom:1.75rem}
+.hero h1 em{font-style:normal;color:#5b9cf6}
+.hero-sub{font-size:1.05rem;color:rgba(255,255,255,0.6);max-width:460px;line-height:1.7;margin-bottom:2.5rem;font-weight:300}
+.hero-actions{display:flex;align-items:center;gap:1.5rem}
+.btn-primary{background:var(--azul-claro);color:#fff;padding:0.9rem 1.8rem;border-radius:100px;font-family:var(--font-body);font-size:0.95rem;font-weight:500;text-decoration:none;transition:background 0.2s,transform 0.15s;display:inline-block}
+.btn-primary:hover{background:#4a7fe0;transform:translateY(-2px)}
+.btn-ghost{color:rgba(255,255,255,0.6);font-size:0.9rem;text-decoration:none;display:flex;align-items:center;gap:0.5rem;transition:color 0.2s}
+.btn-ghost:hover{color:#fff}
+.btn-ghost::after{content:'→';transition:transform 0.2s}
+.btn-ghost:hover::after{transform:translateX(4px)}
+.hero-stats{position:absolute;right:4rem;bottom:5rem;z-index:2;display:flex;flex-direction:column;gap:2.5rem}
+.hero-stat{text-align:right}
+.hero-stat-num{font-family:var(--font-display);font-size:2.5rem;font-weight:700;color:#fff;line-height:1}
+.hero-stat-label{font-size:0.78rem;color:rgba(255,255,255,0.4);margin-top:0.3rem;letter-spacing:0.04em}
+
+.clientes-band{background:#fff;padding:2rem 4rem;border-bottom:1px solid var(--gris-claro);display:flex;align-items:center;gap:3rem}
+.clientes-label{font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--gris);white-space:nowrap}
+.clientes-logos{display:flex;align-items:center;gap:3rem;flex-wrap:wrap}
+.cliente-chip{font-family:var(--font-display);font-size:0.9rem;font-weight:600;color:rgba(0,0,0,0.25);letter-spacing:-0.01em}
+
+.section{padding:6rem 4rem}
+.section-label{font-size:0.72rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--azul);margin-bottom:1rem}
+.section-title{font-family:var(--font-display);font-size:clamp(2rem,4vw,3.2rem);font-weight:700;line-height:1.05;letter-spacing:-0.03em;max-width:600px;margin-bottom:1rem}
+.section-sub{font-size:1.05rem;color:var(--gris);max-width:520px;line-height:1.7;margin-bottom:3.5rem;font-weight:300}
+
+.servicios-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.servicio-card{background:#fff;border-radius:16px;overflow:hidden;border:1px solid var(--gris-claro);transition:transform 0.2s,box-shadow 0.2s}
+.servicio-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(26,79,160,0.1)}
+.servicio-img{height:200px;overflow:hidden}
+.servicio-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.4s}
+.servicio-card:hover .servicio-img img{transform:scale(1.05)}
+.servicio-body{padding:1.75rem}
+.servicio-icon{width:40px;height:40px;background:var(--azul);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:1rem}
+.servicio-icon svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.servicio-card h3{font-family:var(--font-display);font-size:1.15rem;font-weight:600;margin-bottom:0.6rem;letter-spacing:-0.02em}
+.servicio-card p{font-size:0.88rem;color:var(--gris);line-height:1.7;font-weight:300}
+
+.porque{background:var(--azul-oscuro)}
+.porque .section-label{color:#5b9cf6}
+.porque .section-title{color:#fff}
+.porque .section-sub{color:rgba(255,255,255,0.5)}
+.porque-layout{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.porque-fotos{display:grid;grid-template-columns:1fr 1fr;gap:1rem;height:480px}
+.porque-foto{border-radius:12px;overflow:hidden}
+.porque-foto img{width:100%;height:100%;object-fit:cover;filter:brightness(0.8)}
+.porque-foto:first-child{grid-row:span 2}
+.razones{display:flex;flex-direction:column;gap:1.5rem}
+.razon{padding:1.5rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:12px}
+.razon h4{font-family:var(--font-display);font-size:1rem;font-weight:600;margin-bottom:0.4rem;color:#fff;letter-spacing:-0.01em}
+.razon p{font-size:0.85rem;color:rgba(255,255,255,0.45);line-height:1.7;font-weight:300}
+.razon-tag{display:inline-block;background:rgba(91,156,246,0.15);color:#5b9cf6;font-size:0.68rem;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;padding:0.25rem 0.65rem;border-radius:100px;margin-bottom:0.75rem}
+
+.cta-band{background:var(--azul);padding:5rem 4rem;display:flex;align-items:center;justify-content:space-between;gap:2rem;position:relative;overflow:hidden}
+.cta-band::before{content:'';position:absolute;right:-80px;top:-80px;width:350px;height:350px;border-radius:50%;background:rgba(255,255,255,0.04)}
+.cta-band h2{font-family:var(--font-display);font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:700;letter-spacing:-0.03em;color:#fff;max-width:500px;line-height:1.15}
+.cta-band-actions{display:flex;flex-direction:column;gap:1rem;align-items:flex-end;position:relative}
+.btn-blanco{background:#fff;color:var(--azul);padding:1rem 2rem;border-radius:100px;font-size:1rem;font-weight:600;text-decoration:none;white-space:nowrap;transition:transform 0.15s}
+.btn-blanco:hover{transform:translateY(-2px)}
+.cta-band-note{font-size:0.78rem;color:rgba(255,255,255,0.6)}
+
+.contacto-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+.contacto-info h3{font-family:var(--font-display);font-size:1.4rem;font-weight:600;margin-bottom:1rem;letter-spacing:-0.02em}
+.contacto-info p{color:var(--gris);line-height:1.7;margin-bottom:2rem;font-weight:300}
+.contacto-datos{display:flex;flex-direction:column;gap:1rem}
+.dato{display:flex;align-items:center;gap:0.75rem;font-size:0.88rem}
+.dato-icon{width:36px;height:36px;background:var(--gris-claro);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.dato-icon svg{width:16px;height:16px;stroke:var(--azul);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.form-group{margin-bottom:1.25rem}
+.form-group label{display:block;font-size:0.75rem;font-weight:600;letter-spacing:0.05em;color:var(--gris);text-transform:uppercase;margin-bottom:0.5rem}
+.form-group input,.form-group textarea,.form-group select{width:100%;padding:0.85rem 1rem;border:1.5px solid var(--gris-claro);border-radius:8px;font-family:var(--font-body);font-size:0.95rem;background:#fff;color:var(--negro);transition:border-color 0.2s;outline:none}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--azul)}
+.form-group textarea{resize:vertical;min-height:120px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.btn-submit{width:100%;background:var(--azul);color:#fff;padding:1rem;border-radius:8px;border:none;font-family:var(--font-body);font-size:1rem;font-weight:500;cursor:pointer;transition:background 0.2s}
+.btn-submit:hover{background:var(--azul-claro)}
+
+footer{background:var(--negro);padding:2.5rem 4rem;display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(255,255,255,0.05)}
+.footer-logo img{height:28px;filter:brightness(0) invert(1);opacity:0.6}
+.footer-copy{font-size:0.78rem;color:rgba(255,255,255,0.3)}
+.footer-links{display:flex;gap:1.5rem}
+.footer-links a{font-size:0.78rem;color:rgba(255,255,255,0.35);text-decoration:none;transition:color 0.2s}
+.footer-links a:hover{color:#fff}
+
+@media(max-width:900px){
+nav{padding:1rem 1.5rem}
+.hero{padding:0 1.5rem 4rem}
+.hero-stats{display:none}
+.clientes-band{padding:1.5rem;flex-direction:column;align-items:flex-start;gap:1rem}
+.section{padding:4rem 1.5rem}
+.servicios-grid{grid-template-columns:1fr}
+.porque-layout{grid-template-columns:1fr}
+.porque-fotos{display:none}
+.cta-band{flex-direction:column;padding:3rem 1.5rem;text-align:center;align-items:center}
+.cta-band-actions{align-items:center}
+.contacto-grid{grid-template-columns:1fr}
+.form-row{grid-template-columns:1fr}
+footer{flex-direction:column;gap:1.5rem;text-align:center;padding:2rem 1.5rem}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">
+    <img src="https://assets.zyrosite.com/biwyQ0MI0L15A9rA/admovi_logo_tight-ZpBnHtP2pUdRSr0q.svg" alt="ADMOVI">
+  </div>
+  <ul class="nav-links">
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+    <li><a href="#contacto" class="nav-cta">Cotizá ahora</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-video">
+    <video autoplay muted loop playsinline>
+      <source src="https://videos.pexels.com/video-files/5044418/5044418-uhd_2560_1440_30fps.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-tag"><span></span> Logística en Uruguay</div>
+    <h1>Movemos tu<br>negocio <em>a tiempo,</em><br>siempre.</h1>
+    <p class="hero-sub">Soluciones de transporte, almacenamiento y gestión logística para empresas que no pueden permitirse errores.</p>
+    <div class="hero-actions">
+      <a href="#contacto" class="btn-primary">Quiero una cotización</a>
+      <a href="#servicios" class="btn-ghost">Ver servicios</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-num">100%</div>
+      <div class="hero-stat-label">Entregas monitoreadas</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">MVD</div>
+      <div class="hero-stat-label">Base Montevideo</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">24hs</div>
+      <div class="hero-stat-label">Respuesta garantizada</div>
+    </div>
+  </div>
+</section>
+
+<div class="clientes-band">
+  <span class="clientes-label">Confían en nosotros</span>
+  <div class="clientes-logos">
+    <span class="cliente-chip">Seguro Americano</span>
+    <span class="cliente-chip">AMSJ</span>
+    <span class="cliente-chip">Comag</span>
+  </div>
+</div>
+
+<section id="servicios" class="section">
+  <div class="section-label">Lo que hacemos</div>
+  <h2 class="section-title">Servicios diseñados para tu operación</h2>
+  <p class="section-sub">Desde la primera milla hasta la entrega final, tenemos la solución que tu empresa necesita.</p>
+  <div class="servicios-grid">
+    <div class="servicio-card">
+      <div class="servicio-img">
+        <img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=349,fit=crop/biwyQ0MI0L15A9rA/img_8881-6vCmqPV0zW3DemUv.jpeg" alt="Transporte">
+      </div>
+      <div class="servicio-body">
+        <div class="servicio-icon">
+          <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        </div>
+        <h3>Transporte seguro</h3>
+        <p>Flota de motos y vans para entregas urbanas e interurbanas. Trazabilidad en tiempo real y confirmación de entrega en cada servicio.</p>
+      </div>
+    </div>
+    <div class="servicio-card">
+      <div class="servicio-img">
+        <img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=377,fit=crop/biwyQ0MI0L15A9rA/702a5617-db66-4273-828b-c6dc2d88680d-dmDNxuOpLihJ6CFe.png" alt="Almacenamiento">
+      </div>
+      <div class="servicio-body">
+        <div class="servicio-icon">
+          <svg viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="12" y1="12" x2="12.01" y2="12"/></svg>
+        </div>
+        <h3>Almacenamiento</h3>
+        <p>Espacios seguros y modernos en Montevideo para gestionar tu inventario. Acceso controlado y registro de movimientos.</p>
+      </div>
+    </div>
+    <div class="servicio-card">
+      <div class="servicio-img">
+        <img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=333,fit=crop/biwyQ0MI0L15A9rA/generated/generated-jEocQO04w9ACP10N.png" alt="Gestión logística">
+      </div>
+      <div class="servicio-body">
+        <div class="servicio-icon">
+          <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        </div>
+        <h3>Gestión logística</h3>
+        <p>Planificación de rutas, coordinación de pedidos y monitoreo constante para que tu operación funcione sin fricciones.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="nosotros" class="section porque">
+  <div class="section-label">Por qué ADMOVI</div>
+  <h2 class="section-title">Somos el socio logístico que tu empresa merece</h2>
+  <p class="section-sub">No somos un intermediario más. Somos un equipo comprometido con tu operación, basados en Montevideo y enfocados en resultados.</p>
+  <div class="porque-layout">
+    <div class="porque-fotos">
+      <div class="porque-foto">
+        <img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=349,fit=crop/biwyQ0MI0L15A9rA/img_8881-6vCmqPV0zW3DemUv.jpeg" alt="ADMOVI equipo">
+      </div>
+      <div class="porque-foto">
+        <img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=377,fit=crop/biwyQ0MI0L15A9rA/702a5617-db66-4273-828b-c6dc2d88680d-dmDNxuOpLihJ6CFe.png" alt="ADMOVI operacion">
+      </div>
+      <div class="porque-foto">
+        <img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=333,fit=crop/biwyQ0MI0L15A9rA/generated/generated-jEocQO04w9ACP10N.png" alt="ADMOVI flota">
+      </div>
+    </div>
+    <div class="razones">
+      <div class="razon">
+        <div class="razon-tag">Confiabilidad</div>
+        <h4>Cumplimos lo que prometemos</h4>
+        <p>Cada entrega tiene seguimiento. Sabés exactamente dónde está tu mercadería en todo momento, sin excusas.</p>
+      </div>
+      <div class="razon">
+        <div class="razon-tag">Adaptabilidad</div>
+        <h4>Nos adaptamos a tu volumen</h4>
+        <p>Seas una PyME o una empresa establecida, dimensionamos el servicio a tus necesidades reales, sin pagar de más.</p>
+      </div>
+      <div class="razon">
+        <div class="razon-tag">Comunicación</div>
+        <h4>Siempre hay alguien para atenderte</h4>
+        <p>Trato cercano y respuesta rápida. En ADMOVI hablás con personas que conocen tu cuenta.</p>
+      </div>
+      <div class="razon">
+        <div class="razon-tag">Experiencia</div>
+        <h4>Conocemos el mercado uruguayo</h4>
+        <p>Operamos en Montevideo y área metropolitana con conocimiento real de la logística local.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <h2>¿Listo para optimizar tu logística?</h2>
+  <div class="cta-band-actions">
+    <a href="#contacto" class="btn-blanco">Hablar con un asesor</a>
+    <span class="cta-band-note">Respuesta en menos de 24 horas hábiles</span>
+  </div>
+</section>
+
+<section id="contacto" class="section">
+  <div class="section-label">Contacto</div>
+  <h2 class="section-title">Contanos qué necesitás</h2>
+  <div class="contacto-grid">
+    <div class="contacto-info">
+      <h3>Hablemos de tu operación</h3>
+      <p>Completá el formulario y uno de nuestros asesores te contacta para armar una propuesta a medida.</p>
+      <div class="contacto-datos">
+        <div class="dato">
+          <div class="dato-icon">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <span>Bacigalupi 2057, Montevideo, Uruguay</span>
+        </div>
+        <div class="dato">
+          <div class="dato-icon">
+            <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+          </div>
+          <span>contacto@admovi.com.uy</span>
+        </div>
+        <div class="dato">
+          <div class="dato-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <span>Lunes a Viernes · 10:00 a 16:00 hs</span>
+        </div>
+      </div>
+    </div>
+    <div class="contacto-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nombre</label>
+          <input type="text" placeholder="Tu nombre">
+        </div>
+        <div class="form-group">
+          <label>Empresa</label>
+          <input type="text" placeholder="Nombre de empresa">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" placeholder="correo@empresa.com">
+      </div>
+      <div class="form-group">
+        <label>¿Qué servicio te interesa?</label>
+        <select>
+          <option value="">Seleccioná una opción</option>
+          <option>Transporte y entregas</option>
+          <option>Almacenamiento</option>
+          <option>Gestión logística integral</option>
+          <option>No sé, quiero asesorarme</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Mensaje</label>
+        <textarea placeholder="Contanos brevemente tu operación o lo que necesitás..."></textarea>
+      </div>
+      <button class="btn-submit">Enviar consulta</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">
+    <img src="https://assets.zyrosite.com/biwyQ0MI0L15A9rA/admovi_logo_tight-ZpBnHtP2pUdRSr0q.svg" alt="ADMOVI">
+  </div>
+  <div class="footer-copy">© 2025 ADMOVI · Todos los derechos reservados</div>
+  <div class="footer-links">
+    <a href="#servicios">Servicios</a>
+    <a href="#nosotros">Nosotros</a>
+    <a href="#contacto">Contacto</a>
+  </div>
+</footer>
+
+</body>
+</html>
